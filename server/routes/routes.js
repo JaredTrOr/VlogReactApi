@@ -8,3 +8,5 @@ router.use('/user', userRouter);
 router.get('/', (req,res) => {
     res.send('Welcome to my server');
 });
+
+module.exports = router;

@@ -5,11 +5,17 @@ const getPosts = (req,res) => {
 }
 
 const createPosts = async (req,res) => {
-    try{
-        await Posts.create(req.body);
-        res.json({success:true, msg: req.body});
-    }catch(err){
-        res.json({success:false, msg: `${err}`});
+    const {title, postText, username} = req.body;
+    if(title && postText && username){
+        try{
+            await Posts.create(req.body);
+            res.json({success:true, msg: req.body});
+        }catch(err){
+            res.json({success:false, msg: `${err}`});
+        }
+    }
+    else{
+        res.json({success:false, msg: `Incorrect data sent`});
     }
 };
 
