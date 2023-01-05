@@ -1,7 +1,8 @@
 const {Posts} = require('../config/connection'); //Post model
 
-const getPosts = (req,res) => {
-    res.send('Welcome to vlog-post');
+const getPosts = async (req,res) => {
+    const listOfPosts = await Posts.findAll();
+    res.json(listOfPosts);
 }
 
 const createPosts = async (req,res) => {
