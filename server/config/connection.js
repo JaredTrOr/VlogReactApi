@@ -1,6 +1,7 @@
 require('dotenv').config();
 const Sequelize = require('sequelize');
 const PostsModel = require('../models/Posts');
+const UserMode = require('../models/Users');
 
 //Create connection
 const connection = new Sequelize (
@@ -16,6 +17,7 @@ const connection = new Sequelize (
 
 //Initialize models
 const Posts = PostsModel(connection, Sequelize);
+const User = UserMode(connection, Sequelize);
 
 //Syncronized the database and models
 connection.sync({force: false})
@@ -27,6 +29,7 @@ connection.sync({force: false})
     });
 
 module.exports = {
-    Posts
+    Posts,
+    User
 }
 
