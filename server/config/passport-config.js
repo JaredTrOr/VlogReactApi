@@ -1,4 +1,4 @@
-const LocalStrategy = require('passport-local').LocalStrategy
+const LocalStrategy = require('passport-local').Strategy
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const {User} = require('../config/connection');
@@ -16,7 +16,7 @@ function initialization (){
             if(user){
                 try{
                     if(await bcrypt.compare(password,user.password)){
-                        return (null, user);
+                        return (null, user, {message: `You logged in`});
                     }
                     return done(null, false, {message: `Incorrect password`}); 
                 }catch(err){

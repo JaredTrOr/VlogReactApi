@@ -29,9 +29,6 @@ const getUsers = async (req,res) => {
     }
 }
 
-const loginUser = async (req,res) => {
-    const {username, password} = req.body;
-}
 
 module.exports = {
     createUser,
