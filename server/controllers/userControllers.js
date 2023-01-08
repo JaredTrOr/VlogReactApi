@@ -7,6 +7,7 @@ const createUser = async (req,res) => {
         try{
             await User.create(req.body);
             res.json({success:true, msg: `User created`});
+            
         }catch(err){
             res.json({success:false, msg: `${err}`});
         }
