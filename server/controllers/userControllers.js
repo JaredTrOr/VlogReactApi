@@ -1,10 +1,13 @@
 const {User} = require('../config/connection');
+const bcrypt = require('bcrypt');
 
 const createUser = async (req,res) => {
     const {name, email, username, password} = req.body;
 
     if(name && email && username && password){
         try{
+            const hashedPassword = await bcrypt.hash(password, 10);
+            req.body.password = hashedPassword;
             await User.create(req.body);
             res.json({success:true, msg: `User created`});
             
