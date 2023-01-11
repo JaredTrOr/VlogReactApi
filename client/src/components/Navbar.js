@@ -1,10 +1,14 @@
 import '../styles/Navbar.css';
+import logo from '../images/logo192.png';
 
 function Navbar(){
     return(
         <nav className="navbar">
             <div className="logo">
-                <a href=''>Logo</a>
+                <a href=''>
+                    <img className='logo-img' src={logo}/> 
+                    <label>React vlog</label>
+                </a>
             </div>
 
             <div className="nav-items">

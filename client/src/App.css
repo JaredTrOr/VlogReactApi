@@ -7,17 +7,22 @@
   font-family: 'Roboto', sans-serif;
 }
 
+body{
+  background-color: #444444;
+  color: white;
+}
+
 .main-container{
+  background-color: #545454;
   width: min(80%, 70rem);
   margin: 4rem auto;
   border-radius: 10px;
   padding: 2rem;
 
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
   justify-content: center;
-
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 a{

@@ -1,3 +1,5 @@
+import '../styles/Post.css';
+
 function Post({post, index}){
     return(
         <div className="post" id={index}>
