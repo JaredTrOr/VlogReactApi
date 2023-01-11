@@ -1,6 +1,8 @@
 import './App.css';
 import axios from 'axios';
 import {useEffect, useState} from 'react';
+import Post from './components/Post';
+import Navbar from './components/Navbar';
 
 function App() {  
 
@@ -14,11 +16,15 @@ function App() {
   },[]);
 
   return (
-    <div className="main-container">
-      {listOfPosts.map((post) => {
-        return <div>{post.title}</div>
-      })}
-    </div>
+    <>
+      <Navbar/>
+      <div className="main-container">
+        {listOfPosts.map((post,index) => {
+          return <Post post={post} index={index} key={index}/>
+        })}
+      </div>
+    </>
+    
   );
 }
 
