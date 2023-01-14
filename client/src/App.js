@@ -1,30 +1,18 @@
 import './App.css';
-import axios from 'axios';
-import {useEffect, useState} from 'react';
-import Post from './components/Post';
-import Navbar from './components/Navbar';
+import {BrowserRouter, Route, Routes, Link} from 'react-router-dom';
+import Home from './pages/Home';
 
 function App() {  
 
-  const [listOfPosts, setListsOfPosts] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:3000/posts')
-    .then(response => {
-      setListsOfPosts(response.data);
-    });
-  },[]);
-
   return (
-    <>
-      <Navbar/>
-      <div className="main-container">
-        {listOfPosts.map((post,index) => {
-          return <Post post={post} index={index} key={index}/>
-        })}
-      </div>
-    </>
-    
+    <div className='App'>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' exact element={<Home/>}/>
+          <Route path='/createPost' exact />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

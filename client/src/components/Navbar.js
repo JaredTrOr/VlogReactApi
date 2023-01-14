@@ -7,7 +7,7 @@ function Navbar(){
             <div className="logo">
                 <a href=''>
                     <img className='logo-img' src={logo}/> 
-                    <label>React vlog</label>
+                    <p>React vlog</p>
                 </a>
             </div>
 
