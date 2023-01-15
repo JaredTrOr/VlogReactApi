@@ -31,16 +31,6 @@ img{
     width: min(100%, 30rem);
 }
 
-.submit-post{
-    padding: 1rem;
-    background-color: dodgerblue;
-    border: none;
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
 .error-message{
     color: rgb(255, 108, 108);
 }

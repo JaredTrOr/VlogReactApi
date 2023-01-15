@@ -23,6 +23,6 @@
     width: 30px;
 }
 
-a{
-    color: white;
+.nav-link{
+    text-decoration: none;
 }
