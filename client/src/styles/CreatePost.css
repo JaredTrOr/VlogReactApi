@@ -27,11 +27,6 @@
     padding: 7px;
 }
 
-.input-post-text{
-    height: 7rem;
-    overflow: scroll;
-}
-
 img{
     width: min(100%, 30rem);
 }
@@ -44,4 +39,8 @@ img{
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.error-message{
+    color: rgb(255, 108, 108);
 }
