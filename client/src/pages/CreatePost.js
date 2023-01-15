@@ -1,10 +1,11 @@
 import {Link} from 'react-router-dom';
-import {Formik, Form, Field, ErrorMessage} from 'formik'
-import '../styles/CreatePost.css';
-import writePostImg from '../images/write-your-post.png';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import {useState} from 'react';
+//Styles
+import '../styles/CreatePost.css';
+import writePostImg from '../images/write-your-post.png';
 
 function CreatePost() {
   const [successMessage, setSuccessMessage] = useState('');

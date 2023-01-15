@@ -1,8 +1,15 @@
 import '../styles/Post.css';
+import {useNavigate} from 'react-router-dom';
 
 function Post({post, index}){
+
+    const navigate = useNavigate(); //Navigate hook
+
     return(
-        <div className="post" id={index}>
+        <div 
+            className="post" id={index} 
+            onClick={() => navigate(`/postInformation/${post.id}`)}
+        >
             <div className='post-header'>
                 <div className='profile-picture'></div>
                 <div className='username'>{post?.username}</div>

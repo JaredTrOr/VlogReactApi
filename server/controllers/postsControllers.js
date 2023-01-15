@@ -5,6 +5,13 @@ const getPosts = async (req,res) => {
     res.json(listOfPosts);
 }
 
+const getPostId = async (req,res) => {
+    const {id} = req.params;
+
+    const post = await Posts.findByPk(id);
+    res.json(post);
+}
+
 const createPosts = async (req,res) => {
     const {title, postText, username} = req.body;
     if(title && postText && username){
@@ -22,5 +29,6 @@ const createPosts = async (req,res) => {
 
 module.exports = {
     getPosts,
+    getPostId,
     createPosts
 }
