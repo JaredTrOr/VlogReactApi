@@ -8,7 +8,6 @@ const createUser = async (req,res) => {
         try{
             const hashedPassword = await bcrypt.hash(password, 10);
             req.body.password = hashedPassword;
-            req.body.admin = 0;
             await User.create(req.body);
             res.json({success:true, msg: `User created`});
             

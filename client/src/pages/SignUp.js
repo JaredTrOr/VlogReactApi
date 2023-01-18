@@ -4,8 +4,11 @@ import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Login.css';
 import logo from '../images/logo192.png'
+import {useState} from 'react';
 
 function SignUp(){
+
+    const [signMessage, setSignMessage] = useState('');
 
     const navigate = useNavigate();
 
@@ -22,15 +25,27 @@ function SignUp(){
     });
 
     const onSubmitLogin = (data) => {
-        const {username, password} = data;
+        const {name, email, username, password} = data;
+        const admin = 0;
 
-        axios.post('http://localhost:3000/login', {
+        axios.post('http://localhost:3000/register', {
+            name,
+            email,
             username,
-            password
+            password,
+            admin
         })
         .then(response => {
-           navigate(`/${response.id}`);
+            setSignMessage('You have registered succesfully, welcome !!');
+            setTimeout(() => {
+                setSignMessage('');
+                navigate(`/${true}`);
+            },2000);
+
         })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     return(
@@ -42,7 +57,7 @@ function SignUp(){
             >
                 <Form  className='inner-container'>
                     <div className='column-register column-img'>
-                        <img src={logo} className='img-login'/>
+                        <img src={logo} className='img-login' alt='logo'/>
                         <h2>React Vlog</h2>
                     </div>
                     <div className='column-register column-input'>
@@ -101,6 +116,9 @@ function SignUp(){
                                 name='password'
                                 placeholder='(Ex. 123...)'
                             />
+                        </div>
+                        <div className='success-registration'>
+                            {signMessage}
                         </div>
                         <div>
                             <button className='button' type='submit'>Sign up</button>

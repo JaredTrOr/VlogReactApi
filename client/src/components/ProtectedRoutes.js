@@ -1,8 +1,10 @@
-import {Navigate, Outlet} from 'react-router-dom';
+import {Navigate, Outlet, useParams} from 'react-router-dom';
 
 function ProtectedRoutes(){
 
-    let isAuth = false;
+    const {flag} = useParams();
+
+    let isAuth = flag;
 
     return isAuth ? <Outlet/> : <Navigate to='/login'/>
 }
