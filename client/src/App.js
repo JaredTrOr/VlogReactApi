@@ -6,6 +6,7 @@ import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import CreatePost from './pages/CreatePost';
 import PostInfo from './pages/PostInfo';
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 function App() {  
 
@@ -13,11 +14,13 @@ function App() {
     <div className='App'>
       <BrowserRouter>
         <Routes>
-          <Route path='/' exact element={<Home/>}/>
-          <Route path='/login' exact element={<Login/>}/>
           <Route path='/signUp' exact element={<SignUp/>}/>
-          <Route path='/createPost' exact element={<CreatePost/>}/>
-          <Route path='/postInformation/:id' exact element={<PostInfo/>}/>
+          <Route path='/login' exact element={<Login/>}/>
+          <Route element={<ProtectedRoutes/>}>
+            <Route path='/' exact element={<Home/>}/>
+            <Route path='/createPost' exact element={<CreatePost/>}/>
+            <Route path='/postInformation/:id' exact element={<PostInfo/>}/>
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

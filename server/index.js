@@ -1,13 +1,11 @@
 require('dotenv').config();
 require('./config/connection'); //Database connection
-require('./config/passport-config'); //Passport initialization
 
 const express = require('express');
 const app = express();
 const port = process.env.PORT;
 const router = require('./routes/routes');
 const session = require('express-session');
-const passport = require('passport');
 const cors = require('cors');
 
 app.use(express.urlencoded({extended: true}));
@@ -17,8 +15,6 @@ app.use(session({
     saveUninitialized: true,
     resave: false
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(cors());
 app.use('/', router);
 

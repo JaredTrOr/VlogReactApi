@@ -8,6 +8,7 @@ const createUser = async (req,res) => {
         try{
             const hashedPassword = await bcrypt.hash(password, 10);
             req.body.password = hashedPassword;
+            req.body.admin = 0;
             await User.create(req.body);
             res.json({success:true, msg: `User created`});
             
@@ -26,6 +27,30 @@ const getUsers = async (req,res) => {
         res.json({success:true, users});
     }catch(err){
         res.json({success:false, msg: `${err}`});
+    }
+}
+
+const login = async (req,res) => {
+    const {username, password} = req.body;
+    try{
+        const user = await User.findOne({where: {username}});
+        if(user){
+            try{
+                //Check if it's a user or admin
+
+                if(user.admin)
+
+                if(await bcrypt.compare(password,user.password)){
+                    //Logged in
+                }
+                //Incorrect password
+            }catch(err){
+                return res.json({success: false, msg: err});
+            }
+        }
+        return res.json({success: false, msg: `Incorrect username`});
+    }catch(err){
+        return res.json({success: false, msg: err});
     }
 }
 

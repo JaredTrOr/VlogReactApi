@@ -16,5 +16,9 @@ module.exports = (connection, type) => {
             type: type.STRING,
             allowNull: false
         },
+        admin: {
+            type: type.INTEGER,
+            allowNull: false
+        }
     });
 };

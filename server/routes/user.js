@@ -8,9 +8,6 @@ const {
 
 router.get('/', getUsers);
 router.post('/register',isRegister,createUser);
-router.post('/login', passport.authenticate('local', {
-    successFlash: true,
-    failureFlash: true
-}));
+router.post('/login', );
 
 module.exports = router;
