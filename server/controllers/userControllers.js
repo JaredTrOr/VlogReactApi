@@ -9,7 +9,8 @@ const createUser = async (req,res) => {
             const hashedPassword = await bcrypt.hash(password, 10);
             req.body.password = hashedPassword;
             await User.create(req.body);
-            res.json({success:true, msg: `User created`});
+            const user = await User.findOne({where: {username}});
+            res.json({success:true, msg: `User created`, user});
             
         }catch(err){
             res.json({success:false, msg: `${err}`});
@@ -29,20 +30,28 @@ const getUsers = async (req,res) => {
     }
 }
 
+const getUserId = async (req,res) => {
+    const {id} = req.params;
+    try{
+        const user = await User.findByPk(id);
+        res.json({success:true, user});
+    }catch(err){
+        res.json({success:false, msg: `${err}`});
+    }
+}
+
 const login = async (req,res) => {
     const {username, password} = req.body;
     try{
         const user = await User.findOne({where: {username}});
         if(user){
             try{
-                //Check if it's a user or admin
-
-                if(user.admin)
-
                 if(await bcrypt.compare(password,user.password)){
-                    //Logged in
+                    return res.json({success: true})
                 }
-                //Incorrect password
+                else{
+                    return res.json({success: false, msg: 'Incorrect password'});
+                }
             }catch(err){
                 return res.json({success: false, msg: err});
             }
@@ -56,5 +65,7 @@ const login = async (req,res) => {
 
 module.exports = {
     createUser,
-    getUsers
+    getUsers,
+    login,
+    getUserId
 }

@@ -1,12 +1,14 @@
 import axios from 'axios';
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import Navbar from '../components/Navbar'
 import Post from '../components/Post';
+import { UserContext } from '../hooks/UserContext';
 
 function Home() {
 
     const [listOfPosts, setListsOfPosts] = useState([]);
+    const {value, setValue} = useContext(UserContext);
 
     useEffect(() => {
         axios.get('http://localhost:3000/posts')
@@ -19,6 +21,7 @@ function Home() {
       <>
         <Navbar/>
         <div className="main-container">
+          <h1>This is my user: {value.nombre}</h1>
           <Link to='/createPost'>Create post</Link>
           {listOfPosts.map((post,index) => {
             return <Post post={post} index={index} key={index}/>

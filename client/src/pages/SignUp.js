@@ -4,11 +4,13 @@ import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Login.css';
 import logo from '../images/logo192.png'
-import {useState} from 'react';
+import {useContext, useState} from 'react';
+import { UserContext } from '../hooks/UserContext';
 
 function SignUp(){
 
     const [signMessage, setSignMessage] = useState('');
+    const {value, setValue} = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -36,10 +38,13 @@ function SignUp(){
             admin
         })
         .then(response => {
+            const user = response.data.user;
+            setValue(user);
+
             setSignMessage('You have registered succesfully, welcome !!');
             setTimeout(() => {
                 setSignMessage('');
-                navigate(`/${true}`);
+                navigate(`/home`);
             },2000);
 
         })
