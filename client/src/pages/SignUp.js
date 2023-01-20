@@ -36,11 +36,10 @@ function SignUp(){
             username,
             password,
             admin
-        })
+        }, {withCredentials: true})
         .then(response => {
             const user = response.data.user;
             setValue(user);
-
             setSignMessage('You have registered succesfully, welcome !!');
             setTimeout(() => {
                 setSignMessage('');

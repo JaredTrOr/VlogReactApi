@@ -10,8 +10,8 @@ const createUser = async (req,res) => {
             req.body.password = hashedPassword;
             await User.create(req.body);
             const user = await User.findOne({where: {username}});
-            res.json({success:true, msg: `User created`, user});
-            
+            req.session.user = user;
+            res.json({success:true, msg: `User created`, user});            
         }catch(err){
             res.json({success:false, msg: `${err}`});
         }
