@@ -2,7 +2,8 @@ import {Link, useNavigate} from 'react-router-dom';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import {useState} from 'react';
+import {useContext, useState} from 'react';
+import { UserContext } from '../hooks/UserContext';
 //Styles
 import '../styles/CreatePost.css';
 import writePostImg from '../images/write-your-post.png';
@@ -10,23 +11,22 @@ import Navbar from '../components/Navbar';
 
 function CreatePost() {
   const [successMessage, setSuccessMessage] = useState('');
+  const {value} = useContext(UserContext);
   const navigate = useNavigate();
 
   const initialValues = {
-    username: '',
     title: '',
     postText: ''
   };
 
   const validationScheme = Yup.object().shape({
-    username: Yup.string().required(),
     title: Yup.string().required(),
     postText: Yup.string()
   });
 
   const onSubmitPost = async (data) => {
-    const {username, title, postText} = data;
-
+    const {title, postText} = data;
+    const username = value.username;
     try{
       await axios.post('http://localhost:3000/posts', {
         title, 
@@ -37,7 +37,7 @@ function CreatePost() {
       setSuccessMessage('The post was created succesfully!!');
       setTimeout(() => {
         setSuccessMessage('');
-        navigate('/');
+        navigate('/home');
       },2000);
     }
     catch(err){
@@ -52,7 +52,7 @@ function CreatePost() {
       <div className="main-container">
         <div className='create-post-nav'>
           <h1>Create post page</h1>
-          <Link to='/'>Go home page</Link>
+          <Link to='/home'>Go home page</Link>
         </div>
 
         <div className='create-post-row'>
@@ -63,21 +63,7 @@ function CreatePost() {
               validationSchema={validationScheme}
               >
 
-              <Form className='form-post'>
-                <div className='input-post'>
-                  <label htmlFor='username'>Username:</label>
-                  <ErrorMessage 
-                    name='username' 
-                    component='span'
-                    className='error-message'
-                  />
-                  <Field 
-                    className='input-create-post' 
-                    name='username' 
-                    placeholder='(Ex. Username...)'
-                  />
-                </div>
-                
+              <Form className='form-post'>                
                 <div className='input-post'>
                   <label htmlFor='title'>Title:</label>
                   <ErrorMessage 

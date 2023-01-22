@@ -9,7 +9,7 @@ module.exports = async (req,res,next) => {
             next();
         }
         else{
-            res.json({success: false, msg: `Email already exists`})
+            res.json({success: false, msg: `Email already exists`});
         }
     }
     else{

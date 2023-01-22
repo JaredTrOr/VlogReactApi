@@ -10,11 +10,16 @@ import { UserContext } from '../hooks/UserContext';
 function SignUp(){
 
     const [signMessage, setSignMessage] = useState('');
-    const {value, setValue} = useContext(UserContext);
+    const [emailMessage, setEmailMessage] = useState('');
+    const [usernameMessage, setUsernameMessage] = useState('');
+
+    const {setValue} = useContext(UserContext);
 
     const navigate = useNavigate();
 
     const initialValues = {
+        name:'',
+        email:'',
         username: '',
         password: ''
     }
@@ -38,19 +43,36 @@ function SignUp(){
             admin
         }, {withCredentials: true})
         .then(response => {
-            const user = response.data.user;
-            setValue(user);
-            setSignMessage('You have registered succesfully, welcome !!');
-            setTimeout(() => {
-                setSignMessage('');
-                navigate(`/home`);
-            },2000);
+            if(response.data.success){
+                const user = response.data.user;
+                setValue(user);
+                setSignMessage('You have registered succesfully, welcome !!');
+                setTimeout(() => {
+                    setSignMessage('');
+                    navigate(`/home`);
+                },2000);
+            }
+            else{
+                const message = response.data.msg;
+                if(message === 'Email already exists'){
+                    setEmailMessage(message);
+                }
+                else{
+                    setUsernameMessage(message);
+                }
+
+            }
 
         })
         .catch(err => {
             console.log(err);
         });
     }
+
+    const onUsernameClick = () => setUsernameMessage('');
+    const onEmailClick = () => setEmailMessage('');
+
+    
 
     return(
         <div className="main-container">
@@ -88,10 +110,12 @@ function SignUp(){
                                 className='error-message'
                                 component='span'
                             />
+                            <span className='warning-exists'>{emailMessage}</span>
                             <Field
                                 className='input-register' 
                                 name='email'
                                 placeholder='(Ex. email@mail.com...)'
+                                onClick={onEmailClick}
                             />
                         </div>
 
@@ -102,10 +126,12 @@ function SignUp(){
                                 className='error-message'
                                 component='span'
                             />
+                            <span className='warning-exists'>{usernameMessage}</span>
                             <Field
                                 className='input-register' 
                                 name='username'
                                 placeholder='(Ex. User123...)'
+                                onClick={onUsernameClick}
                             />
                         </div>
                         <div className='input-container'>

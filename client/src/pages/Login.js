@@ -4,9 +4,16 @@ import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Login.css';
 import chatPng from '../images/chat.png'
+import { useContext, useState } from 'react';
+import { UserContext } from '../hooks/UserContext';
 
 function Login(){
 
+    const [usernameMessage, setUsernameMessage] = useState();
+    const [passwordMessage, setPasswordMessage] = useState();
+    const [loginMessage, setLoginMessage] = useState();
+
+    const {setValue} = useContext(UserContext);
     const navigate = useNavigate();
 
     const initialValues = {
@@ -25,11 +32,34 @@ function Login(){
         axios.post('http://localhost:3000/login', {
             username,
             password
-        })
+        }, {withCredentials: true})
         .then(response => {
-           navigate(`/${response.id}`);
+            if(response.data.success){  
+                const user = response.data.user;
+                setValue(user);
+                setLoginMessage('You have logged in succesfully, welcome !!');
+                setTimeout(() => {
+                    setLoginMessage('');
+                    navigate(`/home`);
+                },2000);
+            }   
+            else{
+                const message = response.data.msg;
+                if(message === 'Incorrect username'){
+                    setUsernameMessage(message);
+                }
+                else{
+                    setPasswordMessage(message);
+                }
+            }
         })
+        .catch(err => {
+            console.log(err);
+        });
     }
+
+    const onClickUsername = () => setUsernameMessage('');
+    const onClickPassword = () => setPasswordMessage('');
 
     return(
         <div className="main-container">
@@ -40,8 +70,9 @@ function Login(){
             >
                 <Form  className='inner-container'>
                     <div className='column-register column-img'>
-                        <img src={chatPng} className='img-login'/>
+                        <img src={chatPng} alt='react-logo' className='img-login'/>
                     </div>
+
                     <div className='column-register column-input'>
                         <h1>Login page</h1>
                         <div className='input-container'>
@@ -51,10 +82,12 @@ function Login(){
                                 className='error-message'
                                 component='span'
                             />
+                            <span className='warning-exists'>{usernameMessage}</span>
                             <Field
                                 className='input-register' 
                                 name='username'
                                 placeholder='(Ex. Username...)'
+                                onClick={onClickUsername}
                             />
                         </div>
                         <div className='input-container'>
@@ -64,17 +97,22 @@ function Login(){
                                 className='error-message'
                                 component='span'
                             />
+                            <span className='warning-exists'>{passwordMessage}</span>
                             <Field
                                 className='input-register'
                                 name='password'
                                 placeholder='(Ex. 123...)'
+                                onClick={onClickPassword}
                             />
+                        </div>
+                        <div className='success-registration'>
+                            {loginMessage}
                         </div>
                         <div>
                             <button className='button' type='submit'>Login</button>
                         </div>
                         <div>
-                            <Link to='/signUp'>Sign up</Link>
+                            <Link to='/'>Sign up</Link>
                         </div>
                     </div>
                 </Form>

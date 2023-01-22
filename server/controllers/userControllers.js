@@ -47,25 +47,44 @@ const login = async (req,res) => {
         if(user){
             try{
                 if(await bcrypt.compare(password,user.password)){
-                    return res.json({success: true})
+                    req.session.user = user;
+                    res.json({success:true, msg: `User logged in`, user});  
                 }
                 else{
-                    return res.json({success: false, msg: 'Incorrect password'});
+                    res.json({success: false, msg: 'Incorrect password'});
                 }
             }catch(err){
-                return res.json({success: false, msg: err});
+                res.json({success: false, msg: err});
             }
         }
-        return res.json({success: false, msg: `Incorrect username`});
+        else{
+            res.json({success: false, msg: `Incorrect username`});
+        }
     }catch(err){
-        return res.json({success: false, msg: err});
+        res.json({success: false, msg: `err ${err}`});
     }
 }
 
+const getSession = (req,res) => {
+    console.log(req.session.user);
+    if(req.session.user){
+        res.json({success:true, msg: 'User with session'});
+    }
+    else{
+        res.json({success: false, msg: 'No user with session'});
+    }
+}
+
+const logOut = (req,res) => {
+    req.session.destroy();
+    res.clearCookie('user_cookie');
+    res.end();
+}
 
 module.exports = {
     createUser,
     getUsers,
     login,
-    getUserId
+    getUserId,
+    getSession
 }

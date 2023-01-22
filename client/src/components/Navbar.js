@@ -1,7 +1,14 @@
 import '../styles/Navbar.css';
 import logo from '../images/logo192.png';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Navbar(){
+
+    const handleSignOut = () => {
+        axios.get('')
+    }
+
     return(
         <nav className="navbar">
             <div className="logo">
@@ -12,7 +19,9 @@ function Navbar(){
             </div>
 
             <div className="nav-items">
-                <div className="signout"><a href="" className='nav-link'>Signout</a></div>
+                <div className="signout">
+                    <Link to='/login' className='nav-link'>Signout</Link>
+                </div>
                 <div className="edit-profile"><a href="" className='nav-link'>Edit profile</a></div>
             </div>
         </nav>

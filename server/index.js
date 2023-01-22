@@ -23,7 +23,7 @@ app.use(session({
     saveUninitialized: true,
     resave: false,
     cookie: {
-        sameSite: false,
+        sameSite: true,
         maxAge: 24 * 60 * 60 * 1000,
         httpOnly: false //Grab the cookie with javascript
     }

@@ -1,17 +1,19 @@
-import axios from 'axios';
-import {Navigate, Outlet} from 'react-router-dom';
+import { useContext } from 'react';
+import {Navigate, Outlet, useLocation} from 'react-router-dom';
+import { UserContext } from '../hooks/UserContext';
 
 function ProtectedRoutes(){
-    //Check if the session exists
+    const location = useLocation();
+    const {value} = useContext(UserContext);
+    
     const isAuth = () => {
-        const userCookie = document.cookie;
-        console.log(userCookie);
-
-        if(userCookie) return true;
+        if(value) return true;
         return false;
     }
 
-    return isAuth() ? <Outlet/> : <Navigate to='/login'/>
+    return isAuth() ? 
+        <Outlet/> : 
+        <Navigate to='/login' replace state={{from: location}}/>
 }
 
 export default ProtectedRoutes;

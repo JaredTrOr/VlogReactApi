@@ -5,10 +5,12 @@ const {
     createUser,
     getUsers,
     login,
-    getUserId
+    getUserId,
+    getSession
 } = require('../controllers/userControllers');
 
 router.get('/', getUsers);
+router.get('/getSession', getSession);
 router.get('/getUser/:id', getUserId);
 router.post('/register',isRegister,createUser);
 router.post('/login', login);

@@ -22,7 +22,9 @@ function Home() {
         <Navbar/>
         <div className="main-container">
           <h1>This is my user: {value.name}</h1>
-          <Link to='/createPost'>Create post</Link>
+          <span>
+            <Link to='/createPost'>Create post</Link>
+          </span>
           {listOfPosts.map((post,index) => {
             return <Post post={post} index={index} key={index}/>
           })}
