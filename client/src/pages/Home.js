@@ -8,12 +8,12 @@ import { UserContext } from '../hooks/UserContext';
 function Home() {
 
     const [listOfPosts, setListsOfPosts] = useState([]);
-    const {value, setValue} = useContext(UserContext);
+    const {value} = useContext(UserContext);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/posts')
+        axios.get(`http://localhost:3000/posts`)
         .then(response => {
-        setListsOfPosts(response.data);
+          setListsOfPosts(response.data);
         });
     },[]);
 
@@ -21,7 +21,7 @@ function Home() {
       <>
         <Navbar/>
         <div className="main-container">
-          <h1>This is my user: {value.name}</h1>
+          <h1>All the posts</h1>
           <span>
             <Link to='/createPost'>Create post</Link>
           </span>

@@ -41,7 +41,7 @@ function Login(){
                 setTimeout(() => {
                     setLoginMessage('');
                     navigate(`/home`);
-                },2000);
+                },1000);
             }   
             else{
                 const message = response.data.msg;

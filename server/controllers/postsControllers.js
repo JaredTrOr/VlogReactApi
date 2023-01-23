@@ -1,7 +1,18 @@
 const {Posts} = require('../config/connection'); //Post model
+const {Op} = require('sequelize');
 
 const getPosts = async (req,res) => {
     const listOfPosts = await Posts.findAll();
+    res.json(listOfPosts);
+}
+
+const getPeoplePosts = async (req,res) => {
+    const {username} = req.params;
+    const listOfPosts = await Posts.findAll({
+        where: {
+            username: {[Op.not]: username}
+        }
+    });
     res.json(listOfPosts);
 }
 
@@ -30,5 +41,6 @@ const createPosts = async (req,res) => {
 module.exports = {
     getPosts,
     getPostId,
-    createPosts
+    createPosts,
+    getPeoplePosts
 }

@@ -98,7 +98,7 @@ function CreatePost() {
           </div>
 
           <div className='create-post-column'>
-            <img src={writePostImg}/>
+            <img src={writePostImg} alt='img of a post'/>
           </div>
         </div>
       </div>
