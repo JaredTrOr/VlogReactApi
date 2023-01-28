@@ -1,5 +1,5 @@
 module.exports = (connection, type) => {
-    return connection.define('User', {
+    const Users = connection.define('User', {
         name: {
             type: type.STRING,
             allowNull: false
@@ -21,4 +21,16 @@ module.exports = (connection, type) => {
             allowNull: false
         }
     });
+
+    Users.associate = (models) => {
+        Users.hasMany(models.Posts, {
+            onDelete: 'cascade'
+        });
+
+        Users.hadMany(models.Comments, {
+            onDelete: 'cascade'
+        })
+    }
+
+    return Users;
 };
