@@ -22,15 +22,5 @@ module.exports = (connection, type) => {
         }
     });
 
-    Users.associate = (models) => {
-        Users.hasMany(models.Posts, {
-            onDelete: 'cascade'
-        });
-
-        Users.hadMany(models.Comments, {
-            onDelete: 'cascade'
-        })
-    }
-
     return Users;
 };

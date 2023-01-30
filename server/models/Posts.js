@@ -10,12 +10,6 @@ module.exports = (connection, type) => {
         },
     });
 
-    Posts.associate = (models) => {
-        Posts.hasMany(models.Comments, {
-            onDelete: 'cascade'
-        });
-    }
-
     return Posts;
 
 };

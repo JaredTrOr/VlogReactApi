@@ -21,6 +21,15 @@ const Posts = PostsModel(connection, Sequelize);
 const User = UserModel(connection, Sequelize);
 const Comments = CommentsModel(connection, Sequelize);
 
+//Associations
+Posts.hasMany(Comments, {
+    foreignKey: 'postID',            
+    onDelete: 'cascade'
+});
+Comments.belongsTo(Posts, {
+    foreignKey: 'postID'
+});
+
 //Syncronized the database and models
 connection.sync({force: false})
     .then(() => {
