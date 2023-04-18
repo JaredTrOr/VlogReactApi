@@ -13,7 +13,7 @@ function Login(){
     const [passwordMessage, setPasswordMessage] = useState();
     const [loginMessage, setLoginMessage] = useState();
 
-    const {setValue} = useContext(UserContext);
+    const {setValue} = useContext(UserContext); //Get the method which exists in this context
     const navigate = useNavigate();
 
     const initialValues = {
@@ -36,7 +36,7 @@ function Login(){
         .then(response => {
             if(response.data.success){  
                 const user = response.data.user;
-                setValue(user);
+                setValue(user); //Set the context of the user
                 setLoginMessage('You have logged in succesfully, welcome !!');
                 setTimeout(() => {
                     setLoginMessage('');
