@@ -8,6 +8,10 @@ module.exports = (connection, type) => {
             type: type.STRING,
             allowNull: false
         },
+        username: {
+            type: type.STRING,
+            allowNull: false
+        }
     });
 
     return Posts;
