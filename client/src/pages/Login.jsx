@@ -27,6 +27,7 @@ function Login(){
     });
 
     const onSubmitLogin = (data) => {
+        console.log(data);
         const {username, password} = data;
 
         axios.post('http://localhost:3000/login', {

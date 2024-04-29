@@ -34,7 +34,7 @@ function Navbar(){
             <div className={burgerClass}>
                 <div className="edit-profile">
                     <Link to='/editProfile' className='nav-link edit-profile'>
-                        <img className='logo-img' src={userIcon} alt='user image'/>
+                        <img className='logo-img' src={userIcon} alt=''/>
                         {value.name}
                     </Link>
                 </div>

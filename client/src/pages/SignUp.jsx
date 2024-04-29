@@ -1,11 +1,13 @@
-import {Formik, Form, Field, ErrorMessage} from 'formik';
-import * as Yup from 'yup';
-import {Link, useNavigate} from 'react-router-dom';
-import axios from 'axios';
-import '../styles/Login.css';
-import logo from '../images/logo192.png'
 import {useContext, useState} from 'react';
 import { UserContext } from '../hooks/UserContext';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {Link, useNavigate} from 'react-router-dom';
+import * as Yup from 'yup';
+import axios from 'axios';
+
+import '../styles/Login.css';
+import logo from '../images/logo192.png'
+
 
 function SignUp(){
 
@@ -71,8 +73,6 @@ function SignUp(){
 
     const onUsernameClick = () => setUsernameMessage('');
     const onEmailClick = () => setEmailMessage('');
-
-    
 
     return(
         <div className="main-container">
